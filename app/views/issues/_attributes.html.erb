@@ -80,11 +80,10 @@
 <% end %>
 
 <script type="text/javascript">
-window.onload=function(){
+$(function(){
       $("#assignedtoid").val( $("#issue_assigned_to_id")[0].options[$("#issue_assigned_to_id")[0].selectedIndex].text);
       var $options = $("#issue_assigned_to_id").clone();  
       $("#assignedtoid").focus(function() {
-         //this.value = "";
       }).keyup(function() {
         if(this.value != ""){
            $("#issue_assigned_to_id option").hide();
