@@ -5,7 +5,7 @@
         :title => l(:label_edit_attachments) if options[:editable] %>
 </div>
 <% for attachment in attachments %>
-<p><%= link_to_attachment attachment, :class => 'icon icon-attachment', :download => true -%>
+<p><%= link_to_attachment attachment, :class => 'icon icon-attachment toimg', :download => true -%>
   <% if attachment.is_text? %>
     <%= link_to image_tag('magnifier.png'),
                 :controller => 'attachments', :action => 'show',
