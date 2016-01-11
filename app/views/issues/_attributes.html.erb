@@ -123,59 +123,19 @@ $(function(){
         $('#issue_custom_field_values_9').val(search);
     }
 
-     //环境online，growid为必填
+     //环境online，growid为0
       if($('#issue_custom_field_values_8').val() == 'Online'){
-        if($('#issue_custom_field_values_9').prev().children().length === 1){
-          $('#issue_custom_field_values_9').prev().append('<span class="required">*</span>');
-        }
-        $.ajax({
-                url: '/custom_fields/9',
-                dataType: "json",
-                type: "PUT",
-                data: {
-                  'custom_field[is_required]' : 1
-                }
-        });
+        $('#issue_custom_field_values_9').val('0');
       }else{
-          $('#issue_custom_field_values_9').prev().children('.required').remove();
-          $.ajax({
-                url: '/custom_fields/9',
-                dataType: "json",
-                type: "PUT",
-                data: {
-                  'custom_field[is_required]' : 0
-                }
-            });
+        $('#issue_custom_field_values_9').val(search);
       }
-    $('#issue_custom_field_values_7').change(function(){
+    $('#issue_custom_field_values_8').change(function(){
         if($('#issue_custom_field_values_8').val() == 'Online'){
-          $('#issue_custom_field_values_9').prev().append('<span class="required">*</span>');
-          $.ajax({
-                  url: '/custom_fields/9',
-                  dataType: "json",
-                  type: "PUT",
-                  data: {
-                    'custom_field[is_required]' : 1
-                  }
-              });
+          $('#issue_custom_field_values_9').val('0');
         }else{
-          $('#issue_custom_field_values_9').prev().children('.required').remove();
-          $.ajax({
-                url: '/custom_fields/9',
-                dataType: "json",
-                type: "PUT",
-                data: {
-                  'custom_field[is_required]' : 0
-                }
-            });
+          $('#issue_custom_field_values_9').val(search);
         }
     });
-
-    //有错误提示 隐藏成功提示
-    if($('#errorExplanation')){
-      $('#flash_notice').hide();
-    }
-
 })
 </script>
 <% include_calendar_headers_tags %>
