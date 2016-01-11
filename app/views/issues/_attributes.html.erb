@@ -81,6 +81,7 @@
 
 <script type="text/javascript">
 $(function(){
+      //下拉人筛选(责任人默认选中)
       $("#assignedtoid").val( $("#issue_assigned_to_id")[0].options[$("#issue_assigned_to_id")[0].selectedIndex].text);
       var $options = $("#issue_assigned_to_id").clone();  
       $("#assignedtoid").focus(function() {
@@ -91,6 +92,9 @@ $(function(){
           $("#issue_assigned_to_id").children(key).show();
           if($("#issue_assigned_to_id").children(key).length == 1){
             $("#issue_assigned_to_id").children(key).attr("selected",true);
+            $("#issue_custom_field_values_6").find("option:selected").attr("selected", false);
+            $("#issue_custom_field_values_6").find('option[value="' + $("#issue_assigned_to_id").val() + '"]').attr("selected", "selected");
+            $("#issue_custom_field_values_6_").val($("#issue_assigned_to_id").val());
           }
         }else{
           $("#issue_assigned_to_id option").show();
@@ -98,14 +102,80 @@ $(function(){
       });
       $("#issue_assigned_to_id").change(function(){
         $("#assignedtoid").val( $("#issue_assigned_to_id")[0].options[$("#issue_assigned_to_id")[0].selectedIndex].text);
+        $("#issue_custom_field_values_6").find("option:selected").attr("selected", false);
+        $("#issue_custom_field_values_6").find('option[value="' + $("#issue_assigned_to_id").val() + '"]').attr("selected", "selected");
+        $("#issue_custom_field_values_6_").val($("#issue_assigned_to_id").val());
       });
+
+    // 显示附件图片
     var tempherf = $('.toimg');
     for(var i = 0 ; i< tempherf.length ;i++){
         if(tempherf[i].href){
-            tempherf.next().next().css("width", "1000px");
+          tempherf.next().next().css("width", "1000px");
         }
         tempherf.next().next()[i].src = tempherf[i].href;
     }
+
+    //参数带给growid
+    var search = window.location.href;
+    if(search.indexOf("project_id=")  > 0){
+        search = search.substring(search.indexOf("project_id=") + 11,search.length);
+        $('#issue_custom_field_values_9').val(search);
+    }
+
+     //环境online，growid为必填
+      if($('#issue_custom_field_values_8').val() == 'Online'){
+        if($('#issue_custom_field_values_9').prev().children().length === 1){
+          $('#issue_custom_field_values_9').prev().append('<span class="required">*</span>');
+        }
+        $.ajax({
+                url: '/custom_fields/9',
+                dataType: "json",
+                type: "PUT",
+                data: {
+                  'custom_field[is_required]' : 1
+                }
+        });
+      }else{
+          $('#issue_custom_field_values_9').prev().children('.required').remove();
+          $.ajax({
+                url: '/custom_fields/9',
+                dataType: "json",
+                type: "PUT",
+                data: {
+                  'custom_field[is_required]' : 0
+                }
+            });
+      }
+    $('#issue_custom_field_values_7').change(function(){
+        if($('#issue_custom_field_values_8').val() == 'Online'){
+          $('#issue_custom_field_values_9').prev().append('<span class="required">*</span>');
+          $.ajax({
+                  url: '/custom_fields/9',
+                  dataType: "json",
+                  type: "PUT",
+                  data: {
+                    'custom_field[is_required]' : 1
+                  }
+              });
+        }else{
+          $('#issue_custom_field_values_9').prev().children('.required').remove();
+          $.ajax({
+                url: '/custom_fields/9',
+                dataType: "json",
+                type: "PUT",
+                data: {
+                  'custom_field[is_required]' : 0
+                }
+            });
+        }
+    });
+
+    //有错误提示 隐藏成功提示
+    if($('#errorExplanation')){
+      $('#flash_notice').hide();
+    }
+
 })
 </script>
 <% include_calendar_headers_tags %>
