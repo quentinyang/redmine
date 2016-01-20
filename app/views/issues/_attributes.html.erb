@@ -118,11 +118,6 @@ $(function(){
 
     //参数带给growid
     var search = window.location.href;
-    if(search.indexOf("project_id=")  > 0){
-        search = search.substring(search.indexOf("project_id=") + 11,search.length);
-        $('#issue_custom_field_values_9').val(search);
-    }
-
      //环境online，growid为0
       if($('#issue_custom_field_values_8').val() == 'Online'){
         $('#issue_custom_field_values_9').val('0');
