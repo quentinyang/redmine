@@ -118,24 +118,21 @@ $(function(){
 
     //参数带给growid
     var search = window.location.href;
-    if(search.indexOf("project_id=")  > 0){
-        search = search.substring(search.indexOf("project_id=") + 11,search.length);
-        $('#issue_custom_field_values_9').val(search);
-    }
-
      //环境online，growid为0
+    setGrowId();
+    $('#issue_custom_field_values_8').change(function(){
+        setGrowId();
+    });
+    function setGrowId(){
       if($('#issue_custom_field_values_8').val() == 'Online'){
         $('#issue_custom_field_values_9').val('0');
       }else{
-        $('#issue_custom_field_values_9').val(search);
+          if(search.indexOf("project_id=")  > 0){
+              search = search.substring(search.indexOf("project_id=") + 11,search.length);
+              $('#issue_custom_field_values_9').val(search);
+          }
       }
-    $('#issue_custom_field_values_8').change(function(){
-        if($('#issue_custom_field_values_8').val() == 'Online'){
-          $('#issue_custom_field_values_9').val('0');
-        }else{
-          $('#issue_custom_field_values_9').val(search);
-        }
-    });
+    }
 })
 </script>
 <% include_calendar_headers_tags %>
