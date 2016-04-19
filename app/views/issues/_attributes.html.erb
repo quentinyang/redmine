@@ -83,7 +83,7 @@
 $(function(){
       //下拉人筛选(责任人默认选中)
       $("#assignedtoid").val( $("#issue_assigned_to_id")[0].options[$("#issue_assigned_to_id")[0].selectedIndex].text);
-      var $options = $("#issue_assigned_to_id").clone();  
+      var $options = $("#issue_assigned_to_id").clone();
       $("#assignedtoid").focus(function() {
       }).change(function() {
         if(this.value != ""){
@@ -95,6 +95,11 @@ $(function(){
             $("#issue_custom_field_values_6").find("option:selected").attr("selected", false);
             $("#issue_custom_field_values_6").find('option[value="' + $("#issue_assigned_to_id").val() + '"]').attr("selected", "selected");
             $("#issue_custom_field_values_6_").val($("#issue_assigned_to_id").val());
+            if($("#issue_custom_field_values_11").length){
+                $("#issue_custom_field_values_11").find("option:selected").attr("selected", false);
+                $("#issue_custom_field_values_11").find('option[value="' + $("#issue_assigned_to_id").val() + '"]').attr("selected", "selected");
+                $("#issue_custom_field_values_11_").val($("#issue_assigned_to_id").val());
+            }
           }
         }else{
           $("#issue_assigned_to_id option").show();
@@ -105,7 +110,13 @@ $(function(){
         $("#issue_custom_field_values_6").find("option:selected").attr("selected", false);
         $("#issue_custom_field_values_6").find('option[value="' + $("#issue_assigned_to_id").val() + '"]').attr("selected", "selected");
         $("#issue_custom_field_values_6_").val($("#issue_assigned_to_id").val());
+        if($("#issue_custom_field_values_11").length){
+            $("#issue_custom_field_values_11").find("option:selected").attr("selected", false);
+            $("#issue_custom_field_values_11").find('option[value="' + $("#issue_assigned_to_id").val() + '"]').attr("selected", "selected");
+            $("#issue_custom_field_values_11_").val($("#issue_assigned_to_id").val());
+        }
       });
+
 
     // 显示附件图片
     var tempherf = $('.toimg');
